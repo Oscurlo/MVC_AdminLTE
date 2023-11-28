@@ -86,7 +86,7 @@ $dataToDoList = $ToDoList->getToDoList();
                                             <label for="todoCheck{$id}"></label>
                                         </div>
                                         <span class="text">{$descripcion}</span>
-                                        <small class="badge" style="color: #fff; background-color: {$color};" data-toggle="popover"title="Categoria" data-content="{$nombreCategoria}">
+                                        <small class="badge" style="color: var(--white); background-color: {$color};" data-toggle="popover"title="Categoria" data-content="{$nombreCategoria}">
                                             <i class="far fa-clock"></i> {$tiempoTrasncurrido}
                                         </small>
                                         <div class="tools">

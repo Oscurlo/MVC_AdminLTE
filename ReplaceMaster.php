@@ -19,11 +19,11 @@ class ReplaceMaster
      *
      * @return array Conteo de cambios y detalles.
      */
-    public static function replace(String $search, String $replace, String $folder = "./*", array $config = []): array|String
+    public static function replace(array|String $search, array|String $replace, String $folder = "./*", array $config = []): array|String
     {
         $defaultConfig = [
             "returnCount" => true,
-            "dirs" => true,
+            "replaceDirs" => true,
             "replace" => true,
         ];
 
@@ -32,18 +32,18 @@ class ReplaceMaster
         $allFiles = glob($folder);
 
         foreach ($allFiles as $route) if (strpos(__FILE__, basename($route)) === false) {
-            if (is_dir($route) && $config["dirs"] === true)
+            if (is_dir($route) && $config["replaceDirs"] === true)
                 $change = array_merge($change, self::replace($search, $replace, "{$route}/*", $config));
             elseif (is_file($route)) {
                 $oldFile = file_get_contents($route);
                 $newFile = $oldFile;
 
-                if (strpos($newFile, $search) !== false && !empty($search)) {
+                if (gettype($search) == "array" || strpos($newFile, $search) !== false && !empty($search)) {
                     $change[] = [
                         "folder" => dirname($route),
                         "file" => basename($route),
                         "replace" => [
-                            $search => $replace
+                            json_encode($search, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) => json_encode($replace, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
                         ]
                     ];
 

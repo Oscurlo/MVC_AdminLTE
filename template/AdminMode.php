@@ -29,7 +29,8 @@ $styles = [
     "AdminLTE/plugins/dropzone/min/dropzone.min.css",
     "AdminLTE/plugins/codemirror/codemirror.css",
     "AdminLTE/plugins/codemirror/theme/ayu-dark.css",
-    "AdminLTE/dist/css/adminlte.min.css"
+    "AdminLTE/dist/css/adminlte.min.css",
+    "assets/custom.css"
 ];
 
 $script = [
@@ -128,12 +129,6 @@ $userInfo = json_encode([
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <?= $showComponet($styles, "css") ?>
-    <style>
-        .CodeMirror-error-line {
-            background: #ffecec;
-            text-decoration: red wavy underline;
-        }
-    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">

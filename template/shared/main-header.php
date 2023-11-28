@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand bg-white navbar-light">
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
@@ -15,8 +15,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" role="button">
-                <i class="fas fa-th-large"></i>
+            <a class="nav-link" data-widget="toggle-dark" role="button">
+                <i class="fas fa-moon"></i>
             </a>
         </li>
     </ul>

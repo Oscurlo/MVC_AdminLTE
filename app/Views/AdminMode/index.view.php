@@ -22,8 +22,24 @@ $breadcrumb = str_replace("index", "Dashboard", substr($this->page, 1))
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"></div>
-                    <div class="card-body"></div>
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="ion ion-person mr-1"></i>
+                            Users
+                        </h3>
+                    </div>
+                    <div class="card-body table-reponsive">
+                        <table class="table" id="table-users">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Role</th>
+                                    <th>Icono</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                     <div class="card-footer"></div>
                 </div>
             </div>

@@ -31,7 +31,7 @@ class ToDoList extends ProcessData
 
         $data = [
             "nombre" => "Importante",
-            "color"  => "#dc3545"
+            "color"  => "var(--red)"
         ];
 
         self::prepare(self::TABLE_CATEGORY, ["data" => $data])->insert();

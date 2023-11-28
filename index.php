@@ -1,6 +1,5 @@
 <?php
 
-
 use System\Config\AppConfig;
 
 # Manejo de errores
@@ -47,7 +46,7 @@ try {
     else throw new Exception("failed to include template");
 } catch (Exception $e) {
     # Manejo de excepciones generales
-    echo "Excepción: {$e->getMessage()}";
+    echo "Excepción: {$e->getMessage()}", "<br>";
     echo "File: {$e->getFile()}", "<br>";
     echo "Line: {$e->getLine()}", "<br>";
 }

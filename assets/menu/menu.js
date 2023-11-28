@@ -1,30 +1,62 @@
-var Config = CONFIG()
-$(document).on(`click`, `#btnDisconnect`, async function () {
-    const request = await fetch(`${Config.BASE_SERVER}/assets/menu/menu.php?action=disconnect`)
+$(document).ready(() => {
+    const Config = CONFIG()
+    const URL_BACKEND = `${Config.BASE_SERVER}/assets/menu/menu.php`
 
-    if (request.status === 200) window.location.href = Config.BASE_SERVER
-})
+    const handleToggleDark = () => {
+        const $navbar = $(`nav.navbar`)
+        const $sidebar = $(`aside.main-sidebar`)
+        const $body = $(`body`)
 
-// Intento de controlar todas las redirecciones
-$(document).on(`click`, `[href][href!=""][href!="#"][href*="${Config.BASE_SERVER}"]`, function (e) {
-    e.preventDefault()
+        // navbar
+        if ($navbar.hasClass("navbar-light"))
+            $navbar.removeClass("bg-white navbar-light").addClass("bg-dark navbar-dark")
+        else
+            $navbar.removeClass("bg-dark navbar-dark").addClass("bg-white navbar-light")
 
-    const $this = $(this)
+        // sidebar
+        if ($sidebar.attr("class").includes("-light-"))
+            $sidebar.attr("class", $sidebar.attr("class").replace("-light-", "-dark-"))
+        else
+            $sidebar.attr("class", $sidebar.attr("class").replace("-dark-", "-light-"))
 
-    if ($this.hasClass("nav-link")) {
-        const $active = $(`.nav-link.active`)
-        $this.addClass("active")
-        $active.removeClass("active")
+        // body
+        $body.toggleClass("dark-mode")
+
+    }, handleDisconnect = async () => {
+        const request = await fetch(`${URL_BACKEND}?action=disconnect`)
+
+        if (request.status === 200) window.location.href = Config.BASE_SERVER
+    }, handleInternalRoute = function (e) {
+        e.preventDefault()
+
+        const $this = $(this)
+        const title = $this.text()
+        const url = $this.attr("href")
+
+        if ($this.hasClass("nav-link")) {
+            const $active = $(`.nav-link.active`)
+            $this.addClass("active")
+            $active.removeClass("active")
+        }
+
+        route(title, url, true)
     }
 
-    title = $this.text()
-    url = $this.attr("href")
-    route(title, url)
+    $(`[data-widget="toggle-dark"]`).on("click", handleToggleDark)
+    $(document).on(`click`, `#btnDisconnect`, handleDisconnect)
+    $(document).on(`click`, `[href*="${Config.BASE_SERVER}"]`, handleInternalRoute)
+
+    window.addEventListener('popstate', async function (e) {
+        const currentState = e.state
+        if (currentState) await route(currentState.title, currentState.url)
+    })
 })
 
-const $CodeMirror = $(`#CodeMirrorException, #CodeMirrorError`).each(function () {
-    const $this = $(this)
-    if ($this.length) {
+function codeError() {
+    const $codeMirror = $(`#CodeMirrorException, #CodeMirrorError`)
+
+    if ($codeMirror.length) $codeMirror.each(function () {
+        const $this = $(this)
         const line = parseInt($this.data('line')) - 1
         const message = $this.data('message')
 
@@ -44,18 +76,14 @@ const $CodeMirror = $(`#CodeMirrorException, #CodeMirrorError`).each(function ()
             trigger: 'hover',
             content: message
         })
-    }
-})
+    })
+}
 
-window.addEventListener('popstate', async function (e) {
-    const currentState = e.state
-    if (currentState) await route(currentState.title, currentState.url)
-})
-
-const route = async (title, url = "/index") => {
+const route = async (title, url = "/index", usePreloader = false) => {
     const Config = CONFIG()
+    const URL_BACKEND = `${Config.BASE_SERVER}/assets/menu/menu.php`
 
-    const request = await fetch(`${Config.BASE_SERVER}/assets/menu/menu.php?action=checkSession`)
+    const request = await fetch(`${URL_BACKEND}?action=checkSession`)
     const checkSession = await request.json()
 
     if (checkSession.status === true) {
@@ -72,16 +100,17 @@ const route = async (title, url = "/index") => {
 
             headTitle.html(title)
 
-            $.ajax(`${Config.BASE_SERVER}/assets/menu/menu.php?action=view`, {
+            $.ajax(`${URL_BACKEND}?action=view`, {
                 type: "POST",
                 dataType: "HTML",
                 data: { view: url },
                 beforeSend: () => {
-                    $preloader.removeAttr(`style`).find(`img`).removeAttr(`style`)
+                    if (usePreloader) $preloader.removeAttr(`style`).find(`img`).removeAttr(`style`)
                 },
                 success: (response) => {
                     const $router = $(`[data-router]`)
                     $router.replaceWith(response)
+                    codeError()
                 },
                 complete: () => {
                     const loadJS = $(`LOAD-SCRIPT`)
@@ -91,7 +120,7 @@ const route = async (title, url = "/index") => {
                         })
                         loadJS.remove()
                     }
-                    setTimeout(() => {
+                    if (usePreloader) setTimeout(() => {
                         $preloader.css({ height: 0 }).find(`img`).css({ display: "none" })
                     }, 1000)
                 }

@@ -3,20 +3,16 @@
 use Model\ImageProcessor;
 
 $data = $_SESSION ?>
-<style>
-    .inter-elevation {
-        filter: drop-shadow(3px 3px 1px rgba(255, 255, 255, .16));
-    }
-</style>
-<aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
+
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary elevation-4">
     <a href="index3.html" class="brand-link">
-        <img src="<?= ImageProcessor::correctImageURL($COMPANY["LOGO"]) ?>" alt="<?= $COMPANY["NAME"] ?> Logo" class="brand-image img-circle inter-elevation" style="opacity: .8">
+        <img src="<?= ImageProcessor::correctImageURL($COMPANY["LOGO"]) ?>" alt="<?= $COMPANY["NAME"] ?> Logo" class="brand-image img-circle" style="opacity: .8">
         <span class="brand-text font-weight-light"><?= $COMPANY["NAME"] ?></span>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= ImageProcessor::correctImageURL($data["files"]) ?>" class="img-circle inter-elevation" alt="User Image">
+                <img src="<?= ImageProcessor::correctImageURL($data["files"]) ?>" class="img-circle" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block"><?= $data["name"] ?></a>
@@ -33,7 +29,7 @@ $data = $_SESSION ?>
             </div>
         </div>
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="<?= $SERVER, "/To-Do-List" ?>" class="nav-link">
                         <i class="nav-icon fas fa-list"></i>

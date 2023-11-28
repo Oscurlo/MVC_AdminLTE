@@ -10,11 +10,12 @@ $(function () {
             const eventId = info.event.id
             $modal.find("[data-mode]").data("mode", "showEvent").data("id", eventId)
             $modal.modal("show")
-        }
+        }, handleEventDrop = (info) => {
 
-        const handleEventDrop = (info) => {
+            console.log(info.event);
+
             const newStartDate = info.event.start.toISOString()
-            const newEndDate = info.event.end.toISOString()
+            const newEndDate = (info.event.end ? info.event.end.toISOString() : newStartDate)
 
             const eventId = info.event.id
 
@@ -31,14 +32,10 @@ $(function () {
                     alerts({ title: title, icon: icon })
                 }
             })
-        }
-
-        const handleDateClick = (info) => {
+        }, handleDateClick = (info) => {
             $modal.find("[data-mode]").data("mode", "formAddEvent")
             $modal.modal("show")
-        }
-
-        const handleEventDidMount = (info) => {
+        }, handleEventDidMount = (info) => {
             $(info.el).popover({
                 title: info.event.title,
                 content: info.event.extendedProps.description,
@@ -46,9 +43,7 @@ $(function () {
                 trigger: "hover",
                 container: "body",
             })
-        }
-
-        const handleModalShown = async function () {
+        }, handleModalShown = async function () {
             const $modal = $(this)
             const $modalBody = $modal.find(".modal-body")
             const $modalTitle = $modal.find(".modal-title")
@@ -77,9 +72,7 @@ $(function () {
                 console.error(error)
                 alerts({ title: "Ha ocurrido un error al cargar el contenido.", icon: "error" })
             }
-        }
-
-        const handleFormSubmit = function (e) {
+        }, handleFormSubmit = function (e) {
             e.preventDefault()
             const $form = $(this)
             const id = $form.data("id")
@@ -94,31 +87,25 @@ $(function () {
                 contentType: false,
                 processData: false,
                 success: (response) => {
-                    const title = response.status ? (mode == "modifyEvent" ? "Se Actualizó evento." : "Se agrego un nuevo evento") : "Ha ocurrido un error al intentar actualizar el evento."
+                    const title = response.status ? (mode == "modifyEvent" ? "Se Actualizó evento." : "Se agrego un nuevo evento.") : "Ha ocurrido un error al intentar actualizar el evento."
                     const icon = response.status ? "success" : "error"
                     alerts({ title: title, icon: icon })
 
-                    if (response.status) refreshCalendarEvents() // Agregar paréntesis aquí
+                    if (response.status) refreshCalendarEvents()
                 }
 
             })
-        }
-
-        const handleEventUpdate = function () {
+        }, handleEventUpdate = function () {
             const $btn = $(this)
             const id = $btn.data("event-update")
             $modal.find("[data-mode]").data("mode", "formModifyEvent").data("id", id)
             setTimeout(() => {
                 $modal.modal("show")
             }, 1000)
-        }
-
-        const handleInputAllDay = function (params) {
+        }, handleInputAllDay = function (params) {
             const $input = $(this)
             console.log($input);
-        }
-
-        const refreshCalendarEvents = () => calendar.refetchEvents()
+        }, refreshCalendarEvents = () => calendar.refetchEvents()
 
         const calendar = new Calendar($calendarEl, {
             headerToolbar: {
@@ -128,6 +115,7 @@ $(function () {
             },
             themeSystem: "bootstrap",
             events: `${URL_BACKEND}?action=getEvents`,
+            dayMaxEvents: true,
             editable: true,
             droppable: true,
             timeZone: Config.TIMEZONE,
