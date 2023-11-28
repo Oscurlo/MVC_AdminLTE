@@ -77,11 +77,11 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 # Route
-$dotenv->required(['BASE_FOLDER', 'BASE_SERVER'])->notEmpty();
+$dotenv->required(["BASE_FOLDER", "BASE_SERVER"])->notEmpty();
 
 # Database
-if (AppConfig::PRODUCTION) $dotenv->required(['DB_PASSWORD'])->notEmpty();
-$dotenv->required(['DB_HOST', 'DB_USERNAME', 'DB_DATABASE'])->notEmpty();
+if (AppConfig::PRODUCTION) $dotenv->required(["DB_PASSWORD"])->notEmpty();
+$dotenv->required(["DB_HOST", "DB_USERNAME", "DB_DATABASE", "DB_GESTOR"])->notEmpty();
 
 define("BASE_FOLDER", $_ENV["BASE_FOLDER"]);
 // define("BASE_SERVER", $_ENV["BASE_SERVER"]);
