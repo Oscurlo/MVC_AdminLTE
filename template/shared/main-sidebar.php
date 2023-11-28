@@ -29,7 +29,7 @@ $data = $_SESSION ?>
             </div>
         </div>
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="<?= $SERVER, "/To-Do-List" ?>" class="nav-link">
                         <i class="nav-icon fas fa-list"></i>
@@ -45,6 +45,35 @@ $data = $_SESSION ?>
                             Calendar
                         </p>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon far fa-envelope"></i>
+                        <p>
+                            Mailbox
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <span class="nav-link" disabled>
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Inbox</p>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link" disabled>
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Compose</p>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link" disabled>
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Read</p>
+                            </span>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
