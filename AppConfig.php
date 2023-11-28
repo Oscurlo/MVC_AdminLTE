@@ -84,8 +84,7 @@ if (AppConfig::PRODUCTION) $dotenv->required(["DB_PASSWORD"])->notEmpty();
 $dotenv->required(["DB_HOST", "DB_USERNAME", "DB_DATABASE", "DB_GESTOR"])->notEmpty();
 
 define("BASE_FOLDER", $_ENV["BASE_FOLDER"]);
-// define("BASE_SERVER", $_ENV["BASE_SERVER"]);
-define("BASE_SERVER", (AppConfig::PRODUCTION ? $_SERVER["BASE_SERVER"] : str_replace($_SERVER["DOCUMENT_ROOT"], ($_SERVER["REQUEST_SCHEME"] ?? "http") . "://{$host}", BASE_FOLDER)));
+define("BASE_SERVER", $_ENV["BASE_SERVER"]);
 
 define("VIEW_MODE", ($_SESSION["SESSION_MODE"] ?? "ClientMode") ?: "ClientMode");
 
