@@ -1,0 +1,30 @@
+:root {
+    --blue: #6C9BCF;
+    --red: #FF0060;
+    --green: #1B9C85;
+    --yellow: #F7D060;
+    --white: #fff;
+    --info-dark: #7d8da1;
+    --dark: #363949;
+    --light: rgba(132, 139, 200, 0.18);
+    --background: #f6f6f9;
+    --box-shadow: 0 2rem 3rem var(--light);
+}
+
+.dark-mode :root {
+    --background: #181a1e;
+    --white: #202528;
+    --dark: #edeffd;
+    --dark-variant: #a3bdcc;
+    --light: rgba(0, 0, 0, .4);
+    --box-shadow: 0 2rem 3rem var(--light);
+}
+
+body {
+    color: var(--dark);
+    background-color: var(--background);
+}
+
+.card {
+    box-shadow: var(--box-shadow);
+}
