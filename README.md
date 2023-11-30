@@ -22,7 +22,7 @@ composer install
 
 Rename the file ".env.dist" to ".env".
 
-Asignar variables requeridas
+Assign required variables
 
 ```env
 BASE_FOLDER=C:/pathFile,

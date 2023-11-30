@@ -40,7 +40,6 @@ $breadcrumb = str_replace("index", "Dashboard", substr($this->page, 1))
                             </thead>
                         </table>
                     </div>
-                    <div class="card-footer"></div>
                 </div>
             </div>
         </div>

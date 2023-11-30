@@ -5,7 +5,7 @@ use Model\ImageProcessor;
 $data = $_SESSION ?>
 
 <aside class="main-sidebar main-sidebar-custom sidebar-light-primary elevation-4">
-    <a href="index3.html" class="brand-link">
+    <a href="<?= $SERVER ?>" class="brand-link">
         <img src="<?= ImageProcessor::correctImageURL($COMPANY["LOGO"]) ?>" alt="<?= $COMPANY["NAME"] ?> Logo" class="brand-image img-circle" style="opacity: .8">
         <span class="brand-text font-weight-light"><?= $COMPANY["NAME"] ?></span>
     </a>
@@ -47,7 +47,7 @@ $data = $_SESSION ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>
                         <p>
                             Mailbox

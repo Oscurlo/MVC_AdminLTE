@@ -79,7 +79,7 @@ function codeError() {
     })
 }
 
-const route = async (title, url = "/index", usePreloader = false) => {
+const route = async (title, url = "index", usePreloader = false) => {
     const Config = CONFIG()
     const URL_BACKEND = `${Config.BASE_SERVER}/assets/menu/menu.php`
 
@@ -87,16 +87,18 @@ const route = async (title, url = "/index", usePreloader = false) => {
     const checkSession = await request.json()
 
     if (checkSession.status === true) {
+        url = url.replace(Config.BASE_SERVER, "").replace(/^\/+|\/+$/g, '').trim() || "index"
+
         if (url && !["#", ""].includes(url)) {
             const $preloader = $(`.preloader`)
             const headTitle = $(`head title`)
 
-            url = url.replace(Config.BASE_SERVER, "") || "/index"
+            url = `/${url}`
 
             history.pushState({
                 title: title,
                 url: url
-            }, title, Config.BASE_SERVER + url)
+            }, title, `${Config.BASE_SERVER}${url}`)
 
             headTitle.html(title)
 

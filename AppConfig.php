@@ -50,7 +50,7 @@ class AppConfig
     # Company
     const COMPANY = [
         "NAME" => "Oscurlo :n",
-        "LOGO" => self::BASE_SERVER . "/img/logo.webp",
+        "LOGO" => "/img/logo.webp",
         "HOME_PAGE" => "https://github.com/Oscurlo"
     ];
 

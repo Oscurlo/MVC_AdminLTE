@@ -8,11 +8,15 @@
     color: var(--white) !important;
 }
 
-.fc-day:hover {
+.fc-day:hover:not(.fc-popover) {
     background-color: var(--gray-2);
 }
 
 .fc .fc-daygrid-day.fc-day-today,
 .fc .fc-timegrid-col.fc-day-today {
     background-color: var(--gray-1);
+}
+
+.fc .fc-popover {
+    z-index: 1059;
 }

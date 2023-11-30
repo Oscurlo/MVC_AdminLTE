@@ -20,7 +20,7 @@ $response = $dashboard::ssp_users([
         $verify = ImageProcessor::correctImageURL($d);
 
         return $verify ? <<<HTML
-        <img src="{$verify}" class="img-circle" alt="User Image" style="width: 50px; height: 50px">
+        <img src="{$verify}" class="img-size-50" alt="User Image">
         HTML : "¯\_(ツ)_/¯";
     }]
 ], $config);

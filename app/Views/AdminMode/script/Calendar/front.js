@@ -36,12 +36,15 @@ $(function () {
             $modal.find("[data-mode]").data("mode", "formAddEvent")
             $modal.modal("show")
         }, handleEventDidMount = (info) => {
+            const title = info.event.title || ""
+            const content = info.event.extendedProps.description || ""
+
             $(info.el).popover({
-                title: info.event.title,
-                content: info.event.extendedProps.description,
+                title: title,
+                content: content,
                 placement: "top",
-                trigger: "hover",
-                container: "body",
+                trigger: "hover focus",
+                container: "body"
             })
         }, handleModalShown = async function () {
             const $modal = $(this)
