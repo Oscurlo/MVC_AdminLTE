@@ -1,0 +1,12 @@
+# Configuración de mí VS Code
+.vscode
+
+# Carpeta donde subo archivos
+files
+
+# dependencias de composer
+vendor
+composer.lock
+
+# archivo de configuración
+.env

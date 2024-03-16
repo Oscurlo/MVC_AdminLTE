@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /MVC_AdminLTE/
+
+    # Evitar el acceso directo a los archivos en el directorio 'app', 'config' y 'vendor'
+    RewriteRule ^(app|config|vendor) - [F,L]
+
+    # Redirigir todas las solicitudes que no sean archivos o directorios existentes a index.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
+</IfModule>
