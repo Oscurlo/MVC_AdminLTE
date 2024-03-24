@@ -37,6 +37,12 @@ final class AppConfig
         "CLIENT"
     ];
 
+    # Información de la empresa
+    const COMPANY = [
+        "NAME" => "Proyecto E-commerce",
+        "LOGO" => self::BASE_SERVER . "/assets/img/IAmOscurlo.webp"
+    ];
+
     # Iniciar sesión con opciones personalizadas
     static function sessionStart(
         int $cookie_lifetime = 86400,  # Duración predeterminada de la cookie de sesión en segundos (1 día)
