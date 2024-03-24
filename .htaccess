@@ -3,7 +3,11 @@
     RewriteBase /MVC_AdminLTE/
 
     # Evitar el acceso directo a los archivos en el directorio 'app', 'config' y 'vendor'
-    RewriteRule ^(app|config|vendor) - [F,L]
+    RewriteRule ^(app|config|public|src|template.views) - [F,L]
+
+    # Redirigir todas las solicitudes de archivos CSS, JavaScript e imágenes desde la carpeta 'adminlte'
+    RewriteRule ^adminlte/(css|js|img)/(.*)$ vendor/almasaeed2010/adminlte/dist/$1/$2 [L]
+    RewriteRule ^plugins/(.*)$ vendor/almasaeed2010/adminlte/plugins/$1 [L]
 
     # Redirigir todas las solicitudes que no sean archivos o directorios existentes a index.php
     RewriteCond %{REQUEST_FILENAME} !-d
