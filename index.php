@@ -1,31 +1,39 @@
 <?php
 
+# Se importa la configuración de la aplicación
 use Config\AppConfig;
 
+# Se incluye el archivo autoload.php para cargar las clases automáticamente
 include __DIR__ . "/vendor/autoload.php";
 
-# Establecer el manejador de errores y excepciones solo si no estamos en producción
+# Manejo de errores y excepciones en modo no producción
 if (!AppConfig::PRODUCTION) {
+    # Definición del manejador de errores personalizado
     set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+        # Se registra el error en el log de errores
         error_log("Error: [{$errno}] {$errstr} - {$errfile}:{$errline}");
     });
 
-    set_exception_handler(function ($exception) {
-        error_log("Exception: {$exception->getMessage()} - {$exception->getFile()}:{$exception->getLine()}");
+    # Definición del manejador de excepciones personalizado
+    set_exception_handler(function ($ex) {
+        # Se registra la excepción en el log de errores
+        error_log("Exception: [{$ex->getMessage()}] - {$ex->getFile()}:{$ex->getLine()}");
     });
 }
 
+# Inicio de la sesión con opciones específicas
 AppConfig::sessionStart(
-    cookie_secure: AppConfig::PRODUCTION
+    cookie_secure: AppConfig::PRODUCTION # Se asegura que las cookies de sesión sean seguras en modo producción
 );
 
+# Configuración de la cabecera HTTP para el tipo de contenido y la codificación de caracteres
 header("Content-type: text/html; charset=" . AppConfig::CHARSET);
 
-$VIEW_MODE = AppConfig::session("VIEW_MODE") ?: AppConfig::DEFAULT_VIEW_MODE;
-$pathView = AppConfig::BASE_FOLDER . "/template.views/{$VIEW_MODE}.php";
+# Ruta de la vista principal
+$pathView = AppConfig::BASE_FOLDER . "/template.views/manageView.php";
 
+# Inclusión de la vista principal si existe, de lo contrario, se lanza una excepción
 if (file_exists($pathView))
     include $pathView;
 else
-    // Si el archivo de vista no existe, lanzar una excepción
-    throw new Exception("It was not possible to include the template");
+    throw new Exception("No fue posible incluir la plantilla");
