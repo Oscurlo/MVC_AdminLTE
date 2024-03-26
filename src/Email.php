@@ -47,12 +47,14 @@ final class Email
      * 
      * @return void No retorna Nada :)
      */
-    public function setFrom(string $mail, string $name = ''): void
+    public function setFrom(string $mail, string $name = ''): self
     {
         $this->mail->setFrom(
             address: $mail,
             name: $name
         );
+
+        return $this;
     }
 
     /**
@@ -63,12 +65,14 @@ final class Email
      * 
      * @return void No retorna Nada :)
      */
-    public function setRecipient(string $mail, string $name = ''): void
+    public function setRecipient(string $mail, string $name = ''): self
     {
         $this->mail->addAddress(
             address: $mail,
             name: $name
         );
+
+        return $this;
     }
 
     /**
@@ -79,12 +83,14 @@ final class Email
      * 
      * @return void No retorna Nada :)
      */
-    public function setReplyTo(string $mail, string $name = ''): void
+    public function setReplyTo(string $mail, string $name = ''): self
     {
         $this->mail->addReplyTo(
             address: $mail,
             name: $name
         );
+
+        return $this;
     }
 
     /**
@@ -95,12 +101,14 @@ final class Email
      * 
      * @return void No retorna Nada :)
      */
-    public function setCC(string $mail, string $name = ''): void
+    public function setCC(string $mail, string $name = ''): self
     {
         $this->mail->addCC(
             address: $mail,
             name: $name
         );
+
+        return $this;
     }
 
     /**
@@ -111,12 +119,14 @@ final class Email
      * 
      * @return void No retorna Nada :)
      */
-    public function setBCC(string $mail, string $name = ''): void
+    public function setBCC(string $mail, string $name = ''): self
     {
         $this->mail->addBCC(
             address: $mail,
             name: $name
         );
+
+        return $this;
     }
 
     /**
@@ -126,13 +136,15 @@ final class Email
      * 
      * @return void No retorna Nada :)
      */
-    public function setAttachment(string $path): void
+    public function setAttachment(string $path): self
     {
         if (file_exists($path))
             $this->mail->addAttachment(
                 path: $path,
                 name: basename($path)
             );
+
+        return $this;
     }
 
     /**
@@ -142,7 +154,7 @@ final class Email
      * @param string $body Contenido
      * @param bool $isHTM si es html ¯\\_(ツ)_/¯
      */
-    public function sendMail(string $subject, string $body, bool $isHTML = true): void
+    public function setMail(string $subject, string $body, bool $isHTML = true): self
     {
         $this->mail->isHTML(
             isHtml: $isHTML
@@ -153,6 +165,8 @@ final class Email
 
         # De momento no lo voy a usar no entendi para q es 😓
         // $this->mail->AltBody = "";
+
+        return $this;
     }
 
     public function send(): bool
